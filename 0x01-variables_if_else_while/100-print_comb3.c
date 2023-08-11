@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
- * main - Prints numbers between 00 to 99.
+ * main - Prints specific combinations of two-digit numbers.
  *
  * Return: Always 0 (Success)
  */
@@ -9,26 +9,21 @@ int main(void)
 {
 	int i, e;
 
-	i = 48;
-	e = 48;
-
-	while (e < 58)
+	for (e = 0; e <= 9; e++)
 	{
-		i = 48;
-		while (i < 58)
+		for (i = e + 1; i <= 9; i++)
 		{
-			putchar(e);
-			putchar(i);
-			if (i == 57 && e == 57)
-			{
+			putchar(e + '0');
+			putchar(i + '0');
+
+			if (e == 8 && i == 9)
 				break;
-			}
+
 			putchar(',');
 			putchar(' ');
-			i++;
 		}
-		e++;
 	}
+
 	putchar('\n');
 	return (0);
 }
