@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include "main.h"
 /*
- *Return product off a and B
+ * mul - multiplies two integers
+* @a: first integer
+* @b: second integer
+* Return: addition of a and b
  */
 int mul(int a, int b)
 {
