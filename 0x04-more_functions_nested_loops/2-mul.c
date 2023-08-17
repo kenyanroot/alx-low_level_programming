@@ -2,7 +2,7 @@
 /*
  *Return product off a and B
  */
-int mul(int a, int b){
-	int result = a * b;
-	return result;
+int mul(int a, int b)
+{
+	return (a * b);
 }
