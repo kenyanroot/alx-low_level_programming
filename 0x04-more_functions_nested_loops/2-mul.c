@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "main.h"
 /*
  *Return product off a and B
