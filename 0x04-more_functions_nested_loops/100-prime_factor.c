@@ -3,9 +3,9 @@
 
 /**
  * main - Finds and prints the largest prime factor of the number 612852475143
- *
  * Return: 0 on success
- */
+*/
+
 int main(void)
 {
     unsigned long int n = 612852475143;
