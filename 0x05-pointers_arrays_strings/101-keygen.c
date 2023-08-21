@@ -12,16 +12,17 @@
  */
 char *generate_random_password(int length)
 {
-    // Characters to use in the password
+    /* Characters to use in the password */
     char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+";
     char *password = malloc(length + 1);
+    int i;  /* Declare loop counter variable here */
     
     if (!password)
     {
         return NULL;
     }
 
-    for (int i = 0; i < length; i++)
+    for (i = 0; i < length; i++)
     {
         int random_index = rand() % (sizeof(charset) - 1);
         password[i] = charset[random_index];
@@ -34,10 +35,12 @@ char *generate_random_password(int length)
 
 int main(void)
 {
-    // Seed random number generator
+    char *password;  /* Declare variable at the beginning of the function */
+
+    /* Seed random number generator */
     srand(time(NULL));
 
-    char *password = generate_random_password(PASSWORD_LENGTH);
+    password = generate_random_password(PASSWORD_LENGTH);
 
     if (password)
     {
