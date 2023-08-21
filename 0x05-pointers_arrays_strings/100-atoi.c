@@ -4,15 +4,16 @@
  * _atoi - convert a string to an integer
  * @s: string to convert
  *
- * Return: the integer value of the string, or 0 if no numbers are present
+ * Return: the integer value of the string, or 0 if no numbers are prese
  */
 int _atoi(char *s)
 {
     int result = 0;
     int sign = 1;
     int started = 0; /* This is to keep track if we've started reading numbers */
+    int i; // Declare loop counter variable here
 
-    for (int i = 0; s[i] != '\0'; i++)
+    for (i = 0; s[i] != '\0'; i++)
     {
         /* Check for a sign */
         if (s[i] == '-' && !started)
