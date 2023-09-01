@@ -1,5 +1,7 @@
-#ifndef HEADER_FILE
-#define HEADER_FILE
+#ifndef MAIN_H
+#define MAIN_H
+#include <stdio.h>
+#include <string.h>
 
 int _putchar(char c);
 int _islower(int c);
@@ -21,5 +23,4 @@ char *_strchr(char *s, char c);
 unsigned int _strspn(char *s, char *accept);
 char *_strpbrk(char *s, char *accept);
 char *_strstr(char *haystack, char *needle);
-
 #endif
