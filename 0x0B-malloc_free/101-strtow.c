@@ -68,6 +68,7 @@ char **strtow(char *str)
 	int total_words = number(str), word_index = 0, length = 0;
 	char **words, *current_word;
 
+
 	if (str == NULL || *str == 0 || total_words == 0)
 		return (NULL);
 
