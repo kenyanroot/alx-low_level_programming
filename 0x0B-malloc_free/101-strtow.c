@@ -1,12 +1,10 @@
-#include "main.h"
+#include "holberton.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 /**
  * number - Calculate number of words in a string.
- * @str: The string to check.
- * Return: The number of words in the string.
- */
+  */
 int number(char *str)
 {
 	int a, num = 0;
@@ -27,7 +25,6 @@ int number(char *str)
 
 /**
  * free_everything - Free allocated memory.
- * @string: The string to free.
  * @i: The counter.
  */
 void free_everything(char **string, int i)
@@ -38,26 +35,9 @@ void free_everything(char **string, int i)
 }
 
 /**
- * find_next_word - Find the next word in a string and its length.
- * @str: The string to search.
- * @length: Pointer to store the length of the word.
- * Return: Pointer to the next word in the string.
- */
-char *find_next_word(char *str, int *length)
-{
-	*length = 0;
-	while (*str == ' ')
-		str++;
-	while (str[*length] != ' ' && str[*length] != '\0')
-		(*length)++;
-	return str;
-}
-
-/**
  * strtow - Split a string into words.
  * @str: The string to split.
- * Return: NULL if the string is empty, NULL, or if the function fails.
- *         Otherwise, return a pointer to the array of words.
+ * Return: NULL if the strin
  */
 char **strtow(char *str)
 {
@@ -74,19 +54,34 @@ char **strtow(char *str)
 		return (NULL);
 	for (; *str != '\0' && b < total_words;)
 	{
-		str = find_next_word(str, &length);
-		words[b] = malloc((length + 1) * sizeof(char));
-		if (words[b] == 0)
+		if (*str == ' ')
+			str++;
+		else
 		{
-			free_everything(words, b);
-			return (NULL);
+			found_word = str;
+			for (; *str != ' ' && *str != '\0';)
+			{
+				length++;
+				str++;
+			}
+			words[b] = malloc((length + 1) * sizeof(char));
+			if (words[b] == 0)
+			{
+				free_everything(words, b);
+				return (NULL);
+			}
+			while (*found_word != ' ' && *found_word != '\0')
+			{
+				words[b][c] = *found_word;
+				found_word++;
+				c++;
+			}
+			words[b][c] = '\0';
+			b++;
+			c = 0;
+			length = 0;
+			str++;
 		}
-		for (found_word = str; c < length; c++)
-			words[b][c] = found_word[c];
-		words[b][c] = '\0';
-		b++;
-		c = 0;
-		str += length;
 	}
 	return (words);
 }
