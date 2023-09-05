@@ -38,6 +38,22 @@ void free_everything(char **string, int i)
 }
 
 /**
+ * find_next_word - Find the next word in a string and its length.
+ * @str: The string to search.
+ * @length: Pointer to store the length of the word.
+ * Return: Pointer to the next word in the string.
+ */
+char *find_next_word(char *str, int *length)
+{
+	*length = 0;
+	while (*str == ' ')
+		str++;
+	while (str[*length] != ' ' && str[*length] != '\0')
+		(*length)++;
+	return str;
+}
+
+/**
  * strtow - Split a string into words.
  * @str: The string to split.
  * Return: NULL if the string is empty, NULL, or if the function fails.
@@ -58,34 +74,19 @@ char **strtow(char *str)
 		return (NULL);
 	for (; *str != '\0' && b < total_words;)
 	{
-		if (*str == ' ')
-			str++;
-		else
+		str = find_next_word(str, &length);
+		words[b] = malloc((length + 1) * sizeof(char));
+		if (words[b] == 0)
 		{
-			found_word = str;
-			for (; *str != ' ' && *str != '\0';)
-			{
-				length++;
-				str++;
-			}
-			words[b] = malloc((length + 1) * sizeof(char));
-			if (words[b] == 0)
-			{
-				free_everything(words, b);
-				return (NULL);
-			}
-			while (*found_word != ' ' && *found_word != '\0')
-			{
-				words[b][c] = *found_word;
-				found_word++;
-				c++;
-			}
-			words[b][c] = '\0';
-			b++;
-			c = 0;
-			length = 0;
-			str++;
+			free_everything(words, b);
+			return (NULL);
 		}
+		for (found_word = str; c < length; c++)
+			words[b][c] = found_word[c];
+		words[b][c] = '\0';
+		b++;
+		c = 0;
+		str += length;
 	}
 	return (words);
 }
