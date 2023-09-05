@@ -3,102 +3,88 @@
 #include <stdlib.h>
 
 /**
- * number - Count the number of words in a string.
- * @str: The string to count words in.
- * Return: The number of words.
+ * number - Calculate the number of words in a string
+ * @str: The string to evaluate
+ *
+ * Return: The number of words in the string
  */
-int number(const char *str)
+int number(char *str)
 {
-	int a, num = 0;
+	int index = 0, word_count = 0;
 
-	for (a = 0; str[a] != '\0'; a++)
+	for (index = 0; str[index] != '\0'; index++)
 	{
-		if (str[a] == ' ')
-			continue;
-		for (; str[a] != ' ' && str[a] != '\0'; a++)
-			;
-		num++;
+		if (*str == ' ')
+			str++;
+		else
+		{
+			for (; str[index] != ' ' && str[index] != '\0'; index++)
+				str++;
+			word_count++;
+		}
 	}
-	return (num);
+	return (word_count);
 }
 
 /**
- * free_everything - Free a 2D array of strings.
- * @string: The array to free.
- * @i: The index to free up to.
+ * free_everything - Free allocated memory
+ * @string_array: The array of strings to free
+ * @count: The number of elements to free
  */
-void free_everything(char **string, int i)
+void free_everything(char **string_array, int count)
 {
-	for (; i >= 0; i--)
-		free(string[i]);
-	free(string);
+	for (; count > 0;)
+		free(string_array[--count]);
+	free(string_array);
 }
 
 /**
- * find_next_word - Find the next word in a string.
- * @str: The string to search.
- * @length: A pointer to store the length of the word.
- * Return: A pointer to the start of the next word.
- */
-const char *find_next_word(const char *str, int *length)
-{
-	*length = 0;
-	while (*str == ' ')
-		str++;
-	while (str[*length] != ' ' && str[*length] != '\0')
-		(*length)++;
-	return (str);
-}
-
-/**
- * allocate_and_copy_word - Allocate and copy a word.
- * @word: The word to copy.
- * @length: The length of the word.
- * Return: A pointer to the new word, or NULL on failure.
- */
-char *allocate_and_copy_word(const char *word, int length)
-{
-	char *new_word;
-	int i;
-
-	new_word = malloc((length + 1) * sizeof(char));
-	if (!new_word)
-		return (NULL);
-	for (i = 0; i < length; i++)
-		new_word[i] = word[i];
-	new_word[i] = '\0';
-	return (new_word);
-}
-
-/**
- * strtow - Split a string into words.
- * @str: The string to split.
- * Return: A 2D array of the words, or NULL on failure.
+ * strtow - Split a string into words
+ * @str: The string to split
+ *
+ * Return: A NULL-terminated array of strings, or NULL on failure
  */
 char **strtow(char *str)
 {
-	int total_words, b = 0, length = 0;
-	char **words;
+	int total_words = number(str);
+	int word_index = 0, char_index = 0, length = 0;
+	char **words, *current_word;
 
-	if (!str || !*str)
+	if (str == NULL || *str == 0 || total_words == 0)
 		return (NULL);
-	total_words = number(str);
-	if (total_words == 0)
-		return (NULL);
+
 	words = malloc((total_words + 1) * sizeof(char *));
-	if (!words)
+	if (words == NULL)
 		return (NULL);
-	for (; *str && b < total_words;)
+
+	for (; *str != '\0' && word_index < total_words;)
 	{
-		str = (char *)find_next_word(str, &length);
-		words[b] = allocate_and_copy_word(str, length);
-		if (!words[b])
+		if (*str == ' ')
+			str++;
+		else
 		{
-			free_everything(words, b);
-			return (NULL);
+			current_word = str;
+			while (*str != ' ' && *str != '\0')
+			{
+				length++;
+				str++;
+			}
+			words[word_index] = malloc((length + 1) * sizeof(char));
+			if (words[word_index] == NULL)
+			{
+				free_everything(words, word_index);
+				return (NULL);
+			}
+			for (char_index = 0; char_index < length; char_index++)
+			{
+				words[word_index][char_index] = *current_word;
+				current_word++;
+			}
+			words[word_index][char_index] = '\0';
+			word_index++;
+			length = 0;
 		}
-		b++, str += length;
 	}
-	words[b] = NULL;
+	words[word_index] = NULL;
 	return (words);
 }
