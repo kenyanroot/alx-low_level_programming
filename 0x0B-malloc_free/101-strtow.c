@@ -51,6 +51,7 @@ char *alloc_word(char *start, int len)
 	char *word = malloc(len + 1);
 	if (word == NULL)
 		return (NULL);
+
 	for (i = 0; i < len; i++)
 		word[i] = start[i];
 	word[i] = '\0';
@@ -68,6 +69,7 @@ char **strtow(char *str)
 	int total_words = number(str), word_index = 0, length = 0;
 	char **words, *current_word;
 
+	/* Add a blank line after variable declarations */
 
 	if (str == NULL || *str == 0 || total_words == 0)
 		return (NULL);
