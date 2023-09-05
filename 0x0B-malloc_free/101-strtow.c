@@ -37,6 +37,7 @@ void free_everything(char **string_array, int count)
 		free(string_array[--count]);
 	free(string_array);
 }
+
 /**
  * alloc_word - Allocate memory for a word and fill it in
  * @start: The start of the word in the original string
