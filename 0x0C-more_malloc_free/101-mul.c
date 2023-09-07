@@ -1,9 +1,9 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int is_digit(char *str);
 void print_error_and_exit();
+char *int_to_str(int num);
+void print_str(char *str);
 
 /**
  * main - Multiplies two numbers
@@ -14,6 +14,7 @@ void print_error_and_exit();
 int main(int argc, char *argv[])
 {
     int num1, num2, result;
+    char *result_str;
 
     if (argc != 3)
     {
@@ -28,8 +29,11 @@ int main(int argc, char *argv[])
     num1 = atoi(argv[1]);
     num2 = atoi(argv[2]);
     result = num1 * num2;
+    
+    result_str = int_to_str(result);
+    print_str(result_str);
+    free(result_str);
 
-    printf("%d\n", result);
     return (0);
 }
 
@@ -40,14 +44,13 @@ int main(int argc, char *argv[])
  */
 int is_digit(char *str)
 {
-    int i, len = strlen(str);
-
-    for (i = 0; i < len; i++)
+    while (*str)
     {
-        if (str[i] < '0' || str[i] > '9')
+        if (*str < '0' || *str > '9')
         {
             return (0);
         }
+        str++;
     }
     return (1);
 }
@@ -57,6 +60,31 @@ int is_digit(char *str)
  */
 void print_error_and_exit()
 {
-    printf("Error\n");
+    char error_msg[] = "Error\n";
+    write(1, error_msg, sizeof(error_msg) - 1);
     exit(98);
+}
+
+/**
+ * int_to_str - Converts an integer to a string
+ * @num: Integer to convert
+ * Return: Pointer to the converted string
+ */
+char *int_to_str(int num)
+{
+    // Implementation here
+}
+
+/**
+ * print_str - Prints a string to stdout
+ * @str: String to print
+ */
+void print_str(char *str)
+{
+    while (*str)
+    {
+        write(1, str, 1);
+        str++;
+    }
+    write(1, "\n", 1);
 }
