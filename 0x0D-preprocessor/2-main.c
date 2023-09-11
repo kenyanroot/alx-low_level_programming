@@ -1,19 +1,14 @@
-#include "1-pi.h"
-#include "1-pi.h"
 #include <stdio.h>
 
+#define FILENAME __FILE__
+
 /**
- * main - check the code for Holberton School students.
- *
- * Return: Always 0.
+ * main - Prints the name of the file it was compiled from.
+ * @void: No parameters.
+ * Return: 0: Success.
  */
 int main(void)
 {
-	float a;
-	float r;
-
-	r = 98;
-	a = PI * r * r;
-	printf("%.3f\n", a);
+	printf("%s\n", __FILE__);
 	return (0);
 }
