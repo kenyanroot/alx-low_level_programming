@@ -1,23 +1,11 @@
 #!/usr/bin/python3
-"""
-No module importation allowed for this task
-"""
-
-
 def add_integer(a, b=98):
-    """
-        Adds two integers
-    """
-    try:
-        assert type(a) in (float, int)
-    except:
+    if not isinstance(a, int) and not isinstance(a, float):
         raise TypeError("a must be an integer")
-    try:
-        assert type(b) in (float, int)
-    except:
+    if not isinstance(b, int) and not isinstance(b, float):
         raise TypeError("b must be an integer")
-    if type(a) == float:
+    if isinstance(a, float):
         a = int(a)
-    if type(b) == float:
+    if isinstance(b, float):
         b = int(b)
-    return a + b
+    return (a + b)
